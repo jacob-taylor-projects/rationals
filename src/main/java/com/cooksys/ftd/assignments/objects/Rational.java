@@ -2,7 +2,11 @@ package com.cooksys.ftd.assignments.objects;
 
 import com.cooksys.ftd.assignments.objects.util.MissingImplementationException;
 
+import java.util.Objects;
+
 public class Rational implements IRational {
+    int numerator;
+    int denominator;
     /**
      * Constructor for rational values of the type:
      * <p>
@@ -15,7 +19,11 @@ public class Rational implements IRational {
      * @throws IllegalArgumentException if the given denominator is 0
      */
     public Rational(int numerator, int denominator) throws IllegalArgumentException {
-        throw new MissingImplementationException();
+        if (denominator==0){
+            throw new IllegalArgumentException();
+        }
+        this.numerator=numerator;
+        this.denominator=denominator;
     }
 
     /**
@@ -23,7 +31,7 @@ public class Rational implements IRational {
      */
     @Override
     public int getNumerator() {
-        throw new MissingImplementationException();
+        return numerator;
     }
 
     /**
@@ -31,7 +39,7 @@ public class Rational implements IRational {
      */
     @Override
     public int getDenominator() {
-        throw new MissingImplementationException();
+        return denominator;
     }
 
     /**
@@ -47,8 +55,15 @@ public class Rational implements IRational {
      */
     @Override
     public Rational construct(int numerator, int denominator) throws IllegalArgumentException {
-        throw new MissingImplementationException();
+        if (denominator==0){
+            throw new IllegalArgumentException("Denominator can not be zero");
+        }else {
+            return new Rational(numerator,denominator);
+
+        }
     }
+
+
 
     /**
      * @param obj the object to check this against for equality
@@ -58,8 +73,13 @@ public class Rational implements IRational {
      */
     @Override
     public boolean equals(Object obj) {
-        throw new MissingImplementationException();
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Rational rational = (Rational) obj;
+        return numerator == rational.numerator && denominator == rational.denominator;
     }
+
+
 
     /**
      * If this is positive, the string should be of the form `numerator/denominator`
@@ -70,6 +90,14 @@ public class Rational implements IRational {
      */
     @Override
     public String toString() {
-        throw new MissingImplementationException();
+         if(numerator<0&&denominator<0){
+            return (numerator*-1)+"/"+(denominator*-1);
+        }else if (numerator<0&&denominator>0){
+            return numerator+"/"+denominator;
+        } else if (numerator>0&& denominator<0) {
+             return "-"+numerator+'/'+(denominator*-1);
+         }else{
+             return numerator+"/"+denominator;
+         }
     }
 }
